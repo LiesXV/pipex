@@ -6,75 +6,57 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/16 14:19:28 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:51:52 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_split(char **split)
+char	*get_path(char **path, char *cmd)
 {
-	int	i;
-
+	char	*test;
+	int		i;
+	int		result;
+	
+	result = -1;
 	i = 0;
-	while (split[i])
+	test = NULL;
+	while (path[i] && result == -1)
 	{
-		free(split[i]);
+		test = ft_strjoin(path[i], "/");
+		if (!test)
+			return (free(test), NULL);
+		test = ft_strjoin(test, cmd);
+		if (!test)
+			return (free(test), NULL);
+		if (access(test, F_OK | X_OK) == 0)
+			result = 1;
+		if (result == -1)
+			free(test);
 		i++;
-	}
-	free(split);
+	} 
+	return (test);
 }
 
-void	parsing(char **argv, t_data *args)
+int	fill_data(char **argv, t_data *args)
 {
 	args->infile = ft_strdup(argv[1]);
-	argv[2] = ft_strjoin(argv[2], " ");
-	argv[2] = ft_strjoin(argv[2], argv[1]);
+	if (!args->infile)
+		return (-1);
 	args->cmd1 = ft_split(argv[2], ' ');
+	if (!args->cmd1)
+		return (-1);
+	args->path1 = get_path(args->env, args->cmd1[0]);
+	if (!args->path1)
+		return (-1);
 	args->outfile = ft_strdup(argv[4]);
-	argv[3] = ft_strjoin(argv[3], " ");
-	argv[3] = ft_strjoin(argv[3], argv[4]);
-	args->cmd2 = ft_split(argv[4], " ");
-}
-
-int	ft_grep(char *test)
-{
-	char	*path;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = 0;
-	path = "PATH";
-	while (path[i])
-	{
-		if (path[i] == test[i])
-			j++;
-		i++;
-	}
-	return (j);
-}
-
-char	**get_env(char **env)
-{
-	char	*path;
-	char	**result;
-	int i;
-
-	i = 0;
-	path = NULL;
-	while (env[i] && !path)
-	{
-		if (ft_grep(env[i]) == 4)
-		{
-			path = ft_strdup(env[i] + 5);
-			if (!path)
-				return (NULL);
-		}
-		i++;
-	}
-	result = ft_split(path, ':');
-	if (!result)
-		free_split(result);
-	return (result);
+	if (!args->outfile)
+		return (-1);
+	args->cmd2 = ft_split(argv[3], ' ');
+	if (!args->cmd2)
+		return (-1);
+	args->path2 = get_path(args->env, args->cmd2[0]);
+	if (!args->path2)
+		return (-1);
+	return (0);
 }

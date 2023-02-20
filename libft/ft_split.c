@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 13:44:33 by ibenhaim          #+#    #+#             */
-/*   Updated: 2022/11/23 13:08:15 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:26:44 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,17 @@ static int	word_len(char const *s, char c, int start)
 		return (0);
 }
 
-static void	*freeyer(char **tab)
+void	free_split(char **split)
 {
-	while (*tab != NULL)
+	int	i;
+
+	i = 0;
+	while (split[i])
 	{
-		free(*tab);
-		tab++;
+		free(split[i]);
+		i++;
 	}
-	free(tab);
-	return (NULL);
+	free(split);
 }
 
 char	**if_error(char const *s)
@@ -103,7 +105,7 @@ char	**ft_split(char const *s, char c)
 			count++;
 		result[i] = ft_substr(s, count, word_len(s, c, count));
 		if (!(result[i]))
-			return (freeyer(result));
+			return (free_split(result), NULL);
 		count += word_len(s, c, count);
 		i++;
 	}

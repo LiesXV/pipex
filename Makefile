@@ -6,7 +6,7 @@
 #    By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 13:10:41 by ibenhaim          #+#    #+#              #
-#    Updated: 2023/02/10 13:24:05 by ibenhaim         ###   ########.fr        #
+#    Updated: 2023/02/20 15:48:59 by ibenhaim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	pipex
 FLAGS		=	-Wall -Werror -Wextra
 
 HEADER		=	pipex.h
-SRCS		=	pipex.c parsing.c
+SRCS		=	pipex.c parsing.c utils.c get_env.c processes.c
 
 INCLUDES	=	includes/
 DIR_LIB		=	libft/

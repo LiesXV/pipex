@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 16:17:33 by ibenhaim          #+#    #+#             */
-/*   Updated: 2022/11/25 16:11:23 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:56:12 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	str[i] = '\0';
-	return (str);
+	return (free((char *) s1), str);
 }

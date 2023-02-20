@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/16 14:16:43 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:49:17 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 
 # include "./libft/libft.h"
 # include <sys/wait.h>
+# include <fcntl.h>
+# include <stdlib.h>
+
+///////////////// STRUCT /////////////////////////
 
 typedef struct	s_data
 {
-	char	*path;
+	int		fd1;
+	int		fd2;
+	int		pipe[2];
+	char	*path1;
+	char	*path2;
 	char	*infile;
 	char	*outfile;
 	char	**cmd1;
@@ -26,7 +34,18 @@ typedef struct	s_data
 	char	**env;
 }				t_data;
 
-void	parsing(char **argv, t_data *args);
+int	enter_process(t_data *args, char **env);
+
+////////////////// PARSING //////////////////////////
+
+int	fill_data(char **argv, t_data *args);
+
+/////////////////// GET_ENV ////////////////////////
+
 char	**get_env(char **env);
+
+//////////////////// UTILS /////////////////////////
+
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
