@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:45:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/01/30 17:46:55 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 15:40:34 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_lstclear(t_list **lst)
 	while (node)
 	{
 		next_node = node->next;
+		free_split(node->cmd);
 		free(node);
 		node = next_node;
 	}

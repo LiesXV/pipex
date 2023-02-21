@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/21 12:17:28 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:25:56 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,26 @@
 
 typedef struct	s_data
 {
-	int		fd1;
-	int		fd2;
-	int		pipe[2];
-	char	*path1;
-	char	*path2;
-	char	*infile;
-	char	*outfile;
-	char	**cmd1;
-	char	**cmd2;
-	char	**env;
+	int				fd1;
+	int				fd2;
+	int				pipe[2];
+	char			*path1;
+	char			*path2;
+	char			*infile;
+	char			*outfile;
+	t_list			*list;
+	char			**env;
 }				t_data;
 
-int	enter_process(t_data *args, char **env);
+void ft_lstprint(t_list *lst);
+
+////////////////// PROCESSES /////////////////////////
+
+int	enter_process(t_data *args);
 
 ////////////////// PARSING //////////////////////////
 
-int	fill_data(char **argv, t_data *args);
+int	fill_data(int argc, char **argv, t_data *args);
 
 /////////////////// GET_ENV ////////////////////////
 
