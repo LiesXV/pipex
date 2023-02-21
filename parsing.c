@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/20 15:51:52 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:40:41 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,32 @@
 char	*get_path(char **path, char *cmd)
 {
 	char	*test;
+	char	*tmp;
 	int		i;
 	int		result;
 	
 	result = -1;
 	i = 0;
-	test = NULL;
 	while (path[i] && result == -1)
 	{
-		test = ft_strjoin(path[i], "/");
-		if (!test)
-			return (free(test), NULL);
-		test = ft_strjoin(test, cmd);
-		if (!test)
-			return (free(test), NULL);
-		if (access(test, F_OK | X_OK) == 0)
-			result = 1;
-		if (result == -1)
+		if (i > 0)
 			free(test);
+		tmp = ft_strdup(path[i]);
+		if(!tmp)
+			return (NULL);
+		tmp = ft_strfjoin(tmp, "/");
+		if (!tmp)
+			return (NULL);
+		test = ft_strfjoin(tmp, cmd);
+		if (!test)
+			return (NULL); 
+		if (access(test, F_OK | X_OK) == -1)
+			result = -1;
+		else
+			return (test);
 		i++;
-	} 
-	return (test);
+	}
+	return (free(test), NULL);
 }
 
 int	fill_data(char **argv, t_data *args)
@@ -46,14 +51,14 @@ int	fill_data(char **argv, t_data *args)
 	args->cmd1 = ft_split(argv[2], ' ');
 	if (!args->cmd1)
 		return (-1);
-	args->path1 = get_path(args->env, args->cmd1[0]);
-	if (!args->path1)
+	args->cmd2 = ft_split(argv[3], ' ');
+	if (!args->cmd2)
 		return (-1);
 	args->outfile = ft_strdup(argv[4]);
 	if (!args->outfile)
 		return (-1);
-	args->cmd2 = ft_split(argv[3], ' ');
-	if (!args->cmd2)
+	args->path1 = get_path(args->env, args->cmd1[0]);
+	if (!args->path1)
 		return (-1);
 	args->path2 = get_path(args->env, args->cmd2[0]);
 	if (!args->path2)

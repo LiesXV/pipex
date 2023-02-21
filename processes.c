@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:33:37 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/20 15:52:02 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/21 12:09:57 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,11 @@ int	enter_process(t_data *args, char **env)
 		return (ft_printf("fork pid1 failed\n"), -1);
 	if (pid1 == 0)
 		first_exec(args, env);
-	wait(NULL);
 	pid2 = fork();
 	if (pid2 == -1)
 		return (ft_printf("fork pid1 failed\n"), -1);
 	if (pid2 == 0)
 		second_exec(args, env);
-	wait(NULL);
 	close(args->pipe[0]);
 	close(args->pipe[1]);
 	close(args->fd1);

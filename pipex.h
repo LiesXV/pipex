@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/20 15:49:17 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/21 12:17:28 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ char	**get_env(char **env);
 
 //////////////////// UTILS /////////////////////////
 
-char	*ft_strjoin(char const *s1, char const *s2);
+void free_all(t_data *args);
 
 #endif

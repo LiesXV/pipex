@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:06:37 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/20 15:07:00 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/21 12:18:40 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ char	**get_env(char **env)
 	result = ft_split(path, ':');
 	if (!result)
 		free_split(result);
-	return (result);
+	return (free(path), result);
 }
