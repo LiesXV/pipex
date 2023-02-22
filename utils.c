@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:07:15 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/21 14:18:07 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:08:27 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	free_all(t_data *args)
 {
-	free(args->path1);
-	free(args->path2);
+	// free(args->path1);
+	// free(args->path2);
 	free(args->infile);
 	free(args->outfile);
 	// free_split(args->cmd1);

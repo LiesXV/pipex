@@ -4,8 +4,7 @@ total 1380$
 drwxr-xr-x 2 ibenhaim 2022_lyon    4096 Feb 22 15:16 libft$
 -rw-r--r-- 1 ibenhaim 2022_lyon    1513 Feb 21 12:13 Makefile$
 -rw-r--r-- 1 ibenhaim 2022_lyon       0 Feb 22 15:12 outfile$
--rw-r--r-- 1 ibenhaim 2022_lyon       0 Feb 22 15:47 outfile2$
--rw-r--r-- 1 ibenhaim 2022_lyon    1082 Feb 22 15:47 outfile3$
+-rw-r--r-- 1 ibenhaim 2022_lyon    1183 Feb 22 15:13 outfile3$
 -rw-r--r-- 1 ibenhaim 2022_lyon    2222 Feb 22 15:09 parsing.c$
 -rw-r--r-- 1 ibenhaim 2022_lyon    3024 Feb 22 15:47 parsing.o$
 -rwxr-xr-x 1 ibenhaim 2022_lyon   27336 Feb 22 15:47 pipex$

@@ -6,14 +6,14 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/21 15:22:42 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:13:35 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE    5
+#  define BUFFER_SIZE	5
 # endif
 
 # include <stdint.h>
@@ -24,8 +24,22 @@
 typedef struct s_list
 {
 	char			**cmd;
+	char			*path;
 	struct s_list	*next;
 }					t_list;
+
+/////////////////////// STRUCT /////////////////////////
+
+typedef struct	s_data
+{
+	int				fd1;
+	int				fd2;
+	int				pipe[2];
+	char			*infile;
+	char			*outfile;
+	t_list			*lst;
+	char			**env;
+}				t_data;
 
 void			free_split(char **split);
 int				ft_isalpha(int c);
@@ -66,7 +80,6 @@ void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 char			*ft_itoa(int n);
 char			**ft_split(char const *s, char c);
-t_list			*ft_lstnew(char **content);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_front(t_list **lst, t_list *new);
@@ -84,5 +97,6 @@ void			ft_putnb_base(long long unsigned int nbr,
 int				ft_printptr(unsigned long long int nbr,
 					unsigned long long int size, char *base);
 char			*get_next_line(int fd);
+t_list			*ft_lstnew(char **content, t_data *args);
 
 #endif
