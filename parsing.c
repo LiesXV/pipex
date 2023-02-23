@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/22 15:09:56 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:01:53 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,25 @@ t_list	*fill_list(int argc, char **argv, t_data *args)
 
 int	fill_data(int argc, char **argv, t_data *args)
 {
-	args->infile = ft_strdup(argv[0]);
+	if (ft_strncmp(argv[0], "here_doc") == 0)
+	{
+		args->hdoc = 1;
+		args->mode = O_APPEND;
+	}
+	else
+	{
+		args->hdoc = 0;
+		args->mode = O_TRUNC;
+	}
+	args->infile = ft_strdup(argv[0 + args->hdoc]);
 	if (!args->infile)
 		return (-1);
 	args->outfile = ft_strdup(argv[argc - 1]);
 	if (!args->outfile)
 		return (-1);
-	args->lst = fill_list(argc - 1, argv + 1, args);
+	args->lst = fill_list(argc - 1 - args->hdoc, argv + 1 + args->hdoc, args);
 	if (!args->lst)
 		return (-1);
-	//ft_lstprint(args->lst);
+	ft_lstprint(args->lst);
 	return (0);
 }

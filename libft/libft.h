@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/22 14:13:35 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:01:40 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct	s_data
 {
 	int				fd1;
 	int				fd2;
+	int				hdoc;
+	int				mode;
+	char			*limiter;
 	int				pipe[2];
 	char			*infile;
 	char			*outfile;
