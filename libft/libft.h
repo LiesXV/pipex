@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/23 14:01:40 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:53:22 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ typedef struct s_list
 
 /////////////////////// STRUCT /////////////////////////
 
-typedef struct	s_data
+typedef struct s_data
 {
-	int				fd1;
-	int				fd2;
+	int				fdin;
+	int				fdout;
 	int				hdoc;
 	int				mode;
+	char			*input;
 	char			*limiter;
-	int				pipe[2];
 	char			*infile;
-	char			*outfile;
+	int				pipe[2];
 	t_list			*lst;
 	char			**env;
 }				t_data;
@@ -55,7 +55,8 @@ char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-int				ft_strncmp(const char *s1, const char *s2);
+int				ft_strcmp(const char *s1, const char *s2);
+int				ft_strncmp(char *s1, char *s2, unsigned int n);
 char			*ft_strnstr(const char *str, const char *find, size_t len);
 int				ft_atoi(const char *str);
 long long int	ft_atoll(const char *str);
@@ -65,6 +66,7 @@ void			*ft_memcpy(void *dst, const void *src, size_t len);
 void			ft_bzero(void *str, size_t len);
 void			*ft_calloc(size_t count, size_t size);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_substr_pipex(char const *s, unsigned int start, size_t len);
 void			*ft_memset(void *str, int value, size_t len);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
@@ -83,6 +85,7 @@ void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 char			*ft_itoa(int n);
 char			**ft_split(char const *s, char c);
+char			**ft_split_pipex(char *str, char limiter);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_front(t_list **lst, t_list *new);

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/22 15:08:53 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:37:57 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-void ft_lstprint(t_list *lst);
+void 	ft_lstprint(t_list *lst);
 
 ////////////////// PROCESSES /////////////////////////
 
-// int		enter_process(t_data *args, char **env);
 void	redir(t_list *lst, char **env, int fdin);
 void	exec(t_list *lst, char **env);
 
@@ -37,6 +36,7 @@ char	**get_env(char **env);
 
 //////////////////// UTILS /////////////////////////
 
-void free_all(t_data *args);
+void 	free_all(t_data *args);
+void	read_input(t_data *args);
 
 #endif

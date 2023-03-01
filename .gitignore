@@ -1,0 +1,7 @@
+*.out
+*.pdf
+./pipex-tester/*
+./pipex-tester
+outfile
+*.o
+*_tmp
