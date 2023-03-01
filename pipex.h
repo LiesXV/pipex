@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/01 11:37:57 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:38:15 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <stdlib.h>
-
-void 	ft_lstprint(t_list *lst);
 
 ////////////////// PROCESSES /////////////////////////
 
@@ -36,7 +34,7 @@ char	**get_env(char **env);
 
 //////////////////// UTILS /////////////////////////
 
-void 	free_all(t_data *args);
+void	free_all(t_data *args);
 void	read_input(t_data *args);
 
 #endif
