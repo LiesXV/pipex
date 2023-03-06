@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/01 15:19:42 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:54:26 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,15 @@ t_list	*fill_list(int argc, char **argv, t_data *args)
 {
 	t_list	*stack_a;
 	t_list	*cell;
-	char	**split;
 	int		i;
 
 	i = 0;
-	split = ft_split_pipex(argv[i], ' ');
-	if (!split)
-		return (NULL);
-	stack_a = ft_lstnew(split, args);
+	stack_a = ft_lstnew(argv[i], args);
 	if (!stack_a)
 		return (ft_lstclear(&stack_a), NULL);
 	while (++i < argc - 1)
 	{
-		split = ft_split_pipex(argv[i], ' ');
-		if (!split)
-			return (NULL);
-		cell = ft_lstnew(split, args);
+		cell = ft_lstnew(argv[i], args);
 		if (!cell)
 			return (ft_lstclear(&stack_a), NULL);
 		ft_lstadd_back(&stack_a, cell);
@@ -80,13 +73,17 @@ t_list	*fill_list(int argc, char **argv, t_data *args)
 	return (stack_a);
 }
 
-int	fill_data(int argc, char **argv, t_data *args)
+int	assign_mode(char **argv, t_data *args)
 {
 	if (ft_strncmp(argv[0], "here_doc", 8) == 0)
 	{
 		args->hdoc = 1;
 		args->limiter = ft_strdup(argv[1]);
+		if(!args->limiter)
+			return (-1);
 		args->limiter = ft_strfjoin(args->limiter, "\n");
+		if(!args->limiter)
+			return (-1);
 		read_input(args);
 		args->mode = O_APPEND;
 	}
@@ -94,8 +91,17 @@ int	fill_data(int argc, char **argv, t_data *args)
 	{
 		args->hdoc = 0;
 		args->infile = ft_strdup(argv[0]);
+		if (!args->infile)
+			return (-1);
 		args->mode = O_TRUNC;
 	}
+	return (0);
+}
+
+int	fill_data(int argc, char **argv, t_data *args)
+{
+	if (assign_mode(argv, args) == -1)
+		return (-1);
 	args->fdin = open(args->infile, O_RDONLY);
 	if (args->fdin == -1)
 		return (ft_printf("fd1 not opened\n"), -1);

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:29:35 by ibenhaim          #+#    #+#             */
-/*   Updated: 2022/12/28 11:36:15 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:32:55 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
-		return (free(stach), NULL);
+		return (NULL);
 	stach = read_file(fd, buf, stach);
 	if (stach == NULL)
-		return (free(stach), NULL);
+		return (NULL);
 	line = got_line(stach);
+	ft_printf("[%s]\n", line);
 	stach = clean_stach(stach);
-	return (line);
+	return (line); 
 }

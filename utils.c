@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:07:15 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/01 15:46:09 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:58:48 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 void	free_all(t_data *args)
 {
-	if (args->limiter != NULL)
+	if (args->hdoc == 1 && args->limiter)
 		free(args->limiter);
-	if (args->infile)
+	if (args->infile != NULL)
 		free(args->infile);
-	if (args->env)
+	if (args->env != NULL)
 		free_split(args->env);
-	close(args->pipe[0]);
-	close(args->pipe[1]);
-	close(args->fdin);
-	close(args->fdin);
 }
 
 void	read_input(t_data *args)

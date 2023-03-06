@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:45:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/02/21 15:40:34 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:32:57 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_lstclear(t_list **lst)
 	{
 		next_node = node->next;
 		free_split(node->cmd);
+		free(node->path);
 		free(node);
 		node = next_node;
 	}

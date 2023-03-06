@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/01 14:53:22 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:50:51 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char			*ft_substr_pipex(char const *s, unsigned int start, size_t len);
 void			*ft_memset(void *str, int value, size_t len);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strfjoin(char const *s1, char const *s2);
+char			*ft_strfjoin(char *s1, char const *s2);
 void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 char			*ft_strdup(const char *str);
@@ -103,6 +103,6 @@ void			ft_putnb_base(long long unsigned int nbr,
 int				ft_printptr(unsigned long long int nbr,
 					unsigned long long int size, char *base);
 char			*get_next_line(int fd);
-t_list			*ft_lstnew(char **content, t_data *args);
+t_list			*ft_lstnew(char *cmd, t_data *args);
 
 #endif
