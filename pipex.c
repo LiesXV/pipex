@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:35:58 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/06 15:31:52 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:46:19 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ int	main(int argc, char **argv, char **env)
 	free_all(&args);
 	list_print(args.lst);
 	ft_lstclear(&args.lst);
+	get_next_line(-1);
 	return (0);
 }

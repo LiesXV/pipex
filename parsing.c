@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/06 13:54:26 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:31:04 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ char	*get_path(char **path, char *cmd)
 
 	result = -1;
 	i = -1;
-	if (access(cmd, F_OK | X_OK) == 1)
-		return (cmd);
+	
+	if (access(cmd, F_OK | X_OK) == 0)
+		return (ft_strdup(cmd));
 	while (path[++i] && result == -1)
 	{
 		test = join_cmd(path[i], cmd);

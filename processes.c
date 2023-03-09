@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:33:37 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/01 15:37:12 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:39:39 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	exec(t_list *lst, char **env)
 {
 	execve(lst->path, lst->cmd, env);
 	ft_printf("first exec failed\n");
+	
 	exit (0);
 }
 
