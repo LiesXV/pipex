@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:45:34 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/09 15:25:15 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:45:08 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	word_len(char const *s, char c, int start)
 	else
 		return (0);
 }
-#include <stdio.h>
+
 int	nbwords(char *s, char c)
 {
 	int	i;
@@ -55,7 +55,6 @@ int	nbwords(char *s, char c)
 
 	i = 0;
 	j = 0;
-	printf("pointeur : %p\n",s);
 	if (s[i] == c)
 		i++;
 	while (s[i])

@@ -6,18 +6,17 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:29:35 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/09 15:47:41 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:47:27 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 char	*ft_free(char *stach, char *buf)
 {
 	char	*temp;
 
 	temp = ft_strjoin(stach, buf);
-	printf("%s\n", temp);
 	return (free(stach), temp);
 }
 
@@ -76,10 +75,8 @@ char	*clean_stach(char	*stach)
 		free(stach);
 		return (NULL);
 	}
-	if (stach[npos] == '\n')	
-	{
+	if (stach[npos] == '\n')
 		line = ft_calloc(ft_strlen(stach) - npos, sizeof(char));
-	}
 	else if (stach[npos] == 0)
 	{
 		line = ft_calloc(ft_strlen(stach) - npos + 2, sizeof(char));
@@ -109,5 +106,5 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = got_line(stach);
 	stach = clean_stach(stach);
-	return (line); 
+	return (line);
 }

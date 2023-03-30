@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:07:15 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/09 15:42:22 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:18:40 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_all(t_data *args)
 		free(args->infile);
 	if (args->env != NULL)
 		free_split(args->env);
+	ft_lstclear(&args->lst);
 }
 
 void	read_input(t_data *args)

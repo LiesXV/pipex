@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:46:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/06 14:55:00 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:12:49 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 
 t_list	*ft_lstnew(char *cmd, t_data *args)
 {
-	t_list	*new;
+	t_list	*new = NULL;
 
 	new = malloc(sizeof(t_list));
 	if (!new)
 		return (NULL);
 	new->cmd = ft_split_pipex(cmd, ' ');
-	if (!new->cmd)
-		return (NULL);
 	new->path = get_path(args->env, new->cmd[0]);
-	if (!new->path)
-		return (NULL);
+	if (!new->cmd)
+		return (ft_lstclear(&new), NULL);
 	new->next = NULL;
 	return (new);
 }

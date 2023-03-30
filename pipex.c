@@ -6,11 +6,20 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:35:58 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/09 15:46:19 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:20:06 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	wait_process(t_list *lst)
+{
+	while (lst)
+	{
+		wait(NULL);
+		lst = lst->next;
+	}
+}
 
 void	list_print(t_list *lst)
 {
@@ -33,21 +42,20 @@ void	process(t_data *args, char **env)
 {
 	int		pid1;
 	t_list	*clone;
-		
+
 	clone = args->lst;
-	dup2(args->fdin, STDIN_FILENO);
-	dup2(args->fdout, STDOUT_FILENO);
-	redir(clone, env, args->fdin);
-	clone = clone->next;
+	dup2(args->fdin, STDIN_FILENO); //exit 1
+	close(args->fdin);
+	dup2(args->fdout, STDOUT_FILENO); //exit 1
+	close(args->fdout);
 	while (clone->next)
 	{
-		redir(clone, env, 1);
+		redir(clone, env);
 		clone = clone->next;
 	}
 	pid1 = fork();
 	if (pid1 == 0)
 		exec(clone, env);
-	wait(NULL);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -60,8 +68,14 @@ int	main(int argc, char **argv, char **env)
 	if (!args.env)
 		return (ft_printf("environment variables not parsed\n"), 0);
 	if (fill_data(argc - 1, argv + 1, &args) == -1)
-		return (free_all(&args), ft_lstclear(&args.lst), ft_printf("data not filled\n"), 0);
+	{
+		free_all(&args);
+		list_print(args.lst);
+		ft_printf("data unfilled\n");
+		return (0);
+	}
 	process(&args, env);
+	wait_process(args.lst);
 	free_all(&args);
 	list_print(args.lst);
 	ft_lstclear(&args.lst);

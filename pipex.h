@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/01 15:38:15 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:00:17 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
+void	list_print(t_list *lst);
+
 ////////////////// PROCESSES /////////////////////////
 
-void	redir(t_list *lst, char **env, int fdin);
+void	redir(t_list *lst, char **env);
 void	exec(t_list *lst, char **env);
 
 ////////////////// PARSING //////////////////////////

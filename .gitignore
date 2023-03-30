@@ -5,3 +5,6 @@
 outfile
 *.o
 *_tmp
+ah
+.gitignore
+libft/libft.a

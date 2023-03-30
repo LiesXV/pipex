@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/06 13:50:51 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:00:07 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_data
 	int				fdin;
 	int				fdout;
 	int				hdoc;
+	int				cpt;
 	int				mode;
 	char			*input;
 	char			*limiter;

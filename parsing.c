@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/09 14:31:04 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:04:59 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*get_path(char **path, char *cmd)
 
 	result = -1;
 	i = -1;
-	
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
 	while (path[++i] && result == -1)
@@ -51,19 +50,19 @@ char	*get_path(char **path, char *cmd)
 			return (test);
 		free(test);
 	}
-	return (free(test), NULL);
+	return (NULL);
 }
 
 t_list	*fill_list(int argc, char **argv, t_data *args)
 {
-	t_list	*stack_a;
-	t_list	*cell;
+	t_list	*stack_a = NULL;
+	t_list	*cell = NULL;
 	int		i;
 
 	i = 0;
 	stack_a = ft_lstnew(argv[i], args);
 	if (!stack_a)
-		return (ft_lstclear(&stack_a), NULL);
+		return (NULL);
 	while (++i < argc - 1)
 	{
 		cell = ft_lstnew(argv[i], args);
@@ -80,10 +79,10 @@ int	assign_mode(char **argv, t_data *args)
 	{
 		args->hdoc = 1;
 		args->limiter = ft_strdup(argv[1]);
-		if(!args->limiter)
+		if (!args->limiter)
 			return (-1);
 		args->limiter = ft_strfjoin(args->limiter, "\n");
-		if(!args->limiter)
+		if (!args->limiter)
 			return (-1);
 		read_input(args);
 		args->mode = O_APPEND;
@@ -104,11 +103,7 @@ int	fill_data(int argc, char **argv, t_data *args)
 	if (assign_mode(argv, args) == -1)
 		return (-1);
 	args->fdin = open(args->infile, O_RDONLY);
-	if (args->fdin == -1)
-		return (ft_printf("fd1 not opened\n"), -1);
 	args->fdout = open(argv[argc - 1], O_WRONLY | O_CREAT | args->mode, 0644);
-	if (args->fdin == -1)
-		return (ft_printf("fd2 not opened\n"), -1);
 	args->lst = fill_list(argc - 1 - args->hdoc, argv + 1 + args->hdoc, args);
 	if (!args->lst)
 		return (-1);

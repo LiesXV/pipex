@@ -47,3 +47,5 @@ cmd = [cat]
 path : /usr/bin/cat
 cmd = [cat]
 cmd = [-e]
+ccscs$
+zcszs$
