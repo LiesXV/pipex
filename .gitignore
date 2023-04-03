@@ -8,3 +8,8 @@ outfile
 ah
 .gitignore
 libft/libft.a
+.vscode/launch.json
+.nfs00000000067d84f2000000ea
+ 
+pipex
+libft/libft.a

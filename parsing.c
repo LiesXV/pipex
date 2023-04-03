@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/30 13:04:59 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/03 10:49:51 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ char	*get_path(char **path, char *cmd)
 
 	result = -1;
 	i = -1;
+	test = ft_strdup(cmd);
 	if (access(cmd, F_OK | X_OK) == 0)
-		return (ft_strdup(cmd));
+		return (test);
 	while (path[++i] && result == -1)
 	{
+		free(test);
 		test = join_cmd(path[i], cmd);
 		if (!test)
 			return (NULL);
@@ -48,15 +50,14 @@ char	*get_path(char **path, char *cmd)
 			result = -1;
 		else
 			return (test);
-		free(test);
 	}
-	return (NULL);
+	return (free(test), NULL);
 }
 
 t_list	*fill_list(int argc, char **argv, t_data *args)
 {
-	t_list	*stack_a = NULL;
-	t_list	*cell = NULL;
+	t_list	*stack_a;
+	t_list	*cell;
 	int		i;
 
 	i = 0;

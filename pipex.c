@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:35:58 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/30 12:20:06 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:26:55 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,24 @@ void	wait_process(t_list *lst)
 	}
 }
 
-void	list_print(t_list *lst)
-{
-	int	row;
-
-	while (lst)
-	{
-		row = 0;
-		ft_printf("path : %s\n", lst->path);
-		while (lst->cmd[row])
-		{
-			ft_printf("cmd = [%s]\n", lst->cmd[row]);
-			row++;
-		}
-		lst = lst->next;
-	}
-}
-
 void	process(t_data *args, char **env)
 {
 	int		pid1;
 	t_list	*clone;
 
 	clone = args->lst;
-	dup2(args->fdin, STDIN_FILENO); //exit 1
-	close(args->fdin);
-	dup2(args->fdout, STDOUT_FILENO); //exit 1
-	close(args->fdout);
+	if (args->fdin != -1)
+	{
+		if (dup2(args->fdin, STDIN_FILENO) == -1)
+			exit(1);
+		close(args->fdin);
+	}
+	if (args->fdout != -1)
+	{
+		if (dup2(args->fdout, STDOUT_FILENO) == -1)
+			exit(1);
+		close(args->fdout);
+	}
 	while (clone->next)
 	{
 		redir(clone, env);
@@ -70,14 +61,13 @@ int	main(int argc, char **argv, char **env)
 	if (fill_data(argc - 1, argv + 1, &args) == -1)
 	{
 		free_all(&args);
-		list_print(args.lst);
 		ft_printf("data unfilled\n");
 		return (0);
 	}
 	process(&args, env);
+	close(STDIN_FILENO);
 	wait_process(args.lst);
 	free_all(&args);
-	list_print(args.lst);
 	ft_lstclear(&args.lst);
 	get_next_line(-1);
 	return (0);

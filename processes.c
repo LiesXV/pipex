@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:33:37 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/30 14:59:30 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:18:11 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 void	exec(t_list *lst, char **env)
 {
-	
-	if (execve(lst->path, lst->cmd, env) == -1)
-	{
-		ft_printf("first exec failed\n");
-		exit (0);
-	}
+	execve(lst->path, lst->cmd, env);
+	ft_printf("exec failed\n");
+	exit (1);
 }
 
 void	redir(t_list *lst, char **env)
@@ -27,11 +24,13 @@ void	redir(t_list *lst, char **env)
 	pid_t	pid;
 	int		pipefd[2];
 
-	pipe(pipefd);
+	if (pipe(pipefd) == -1)
+		exit(1);
 	pid = fork();
+	if (pid == -1)
+		exit(1);
 	if (pid)
 	{
-		//close(pipefd[0]);
 		close(pipefd[1]);
 		if (dup2(pipefd[0], STDIN_FILENO) == -1)
 			exit(1);

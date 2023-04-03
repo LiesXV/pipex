@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:45:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/10 12:34:53 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:48:17 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstclear(t_list **lst)
 {
-	t_list	*node = NULL;
-	t_list	*next_node = NULL;
+	t_list	*node;
+	t_list	*next_node;
 
 	if (lst == NULL)
 		return ;
