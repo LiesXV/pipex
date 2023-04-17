@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:35:58 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/04/03 15:32:34 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:58:17 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,16 @@ void	process(t_data *args, char **env)
 	clone = args->lst;
 	while (clone->next)
 	{
-		redir(clone, env);
-		clone = clone->next;
+		if (args->cpt == 1)
+		{
+			clone = clone->next;
+			args->cpt = 0;
+		}
+		else
+		{
+			redir(clone, env);
+			clone = clone->next;
+		}
 	}
 	pid1 = fork();
 	if (pid1 == -1)

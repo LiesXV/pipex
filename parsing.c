@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/04/03 15:51:59 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:38:14 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,12 @@ int	assign_mode(char **argv, t_data *args)
 
 int	fill_data(int argc, char **argv, t_data *args)
 {
+	args->cpt = 0;
 	if (assign_mode(argv, args) == -1)
 		return (-1);
 	args->fdin = open(args->infile, O_RDONLY);
+	if (args->fdin < 0)
+		args->cpt = 1;
 	args->fdout = open(argv[argc - 1], O_WRONLY | O_CREAT | args->mode, 0644);
 	args->lst = fill_list(argc - 1 - args->hdoc, argv + 1 + args->hdoc, args);
 	if (!args->lst)
