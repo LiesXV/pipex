@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/30 12:00:17 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:31:28 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	**get_env(char **env);
 //////////////////// UTILS /////////////////////////
 
 void	free_all(t_data *args);
-void	read_input(t_data *args);
+int		read_input(t_data *args);
 
 #endif

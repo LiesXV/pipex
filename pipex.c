@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:35:58 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/31 13:26:55 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:32:34 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,8 @@ void	wait_process(t_list *lst)
 	}
 }
 
-void	process(t_data *args, char **env)
+void	make_dups(t_data *args)
 {
-	int		pid1;
-	t_list	*clone;
-
-	clone = args->lst;
 	if (args->fdin != -1)
 	{
 		if (dup2(args->fdin, STDIN_FILENO) == -1)
@@ -39,12 +35,23 @@ void	process(t_data *args, char **env)
 			exit(1);
 		close(args->fdout);
 	}
+}
+
+void	process(t_data *args, char **env)
+{
+	int		pid1;
+	t_list	*clone;
+
+	make_dups(args);
+	clone = args->lst;
 	while (clone->next)
 	{
 		redir(clone, env);
 		clone = clone->next;
 	}
 	pid1 = fork();
+	if (pid1 == -1)
+		exit(1);
 	if (pid1 == 0)
 		exec(clone, env);
 }
@@ -54,14 +61,14 @@ int	main(int argc, char **argv, char **env)
 	t_data	args;
 
 	if (argc < 5)
-		return (ft_printf("arguments insuffisants\n"), 0);
+		return (ft_putstr_fd("arguments insuffisants\n", 2), 0);
 	args.env = get_env(env);
 	if (!args.env)
-		return (ft_printf("environment variables not parsed\n"), 0);
+		return (ft_putstr_fd("environment variables not parsed\n", 2), 0);
 	if (fill_data(argc - 1, argv + 1, &args) == -1)
 	{
 		free_all(&args);
-		ft_printf("data unfilled\n");
+		ft_putstr_fd("data unfilled\n", 2);
 		return (0);
 	}
 	process(&args, env);

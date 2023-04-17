@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/04/03 10:49:51 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:51:59 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	assign_mode(char **argv, t_data *args)
 		args->limiter = ft_strfjoin(args->limiter, "\n");
 		if (!args->limiter)
 			return (-1);
-		read_input(args);
+		if (read_input(args) == -1)
+			return (-1);
 		args->mode = O_APPEND;
 	}
 	else

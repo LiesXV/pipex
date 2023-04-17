@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:07:15 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/10 12:18:40 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:50:22 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ void	free_all(t_data *args)
 	ft_lstclear(&args->lst);
 }
 
-void	read_input(t_data *args)
+int	read_input(t_data *args)
 {
 	int		file;
 	char	*line;
 
 	file = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (file < 0)
+		return (-1);
 	while (1)
 	{
 		write(1, "> ", 2);
@@ -43,4 +45,7 @@ void	read_input(t_data *args)
 	free(line);
 	close(file);
 	args->infile = ft_strdup(".heredoc_tmp");
+	if (!args->infile)
+		return (-1);
+	return (0);
 }
