@@ -6,18 +6,18 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:35:58 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/04/17 12:58:17 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/17 13:22:01 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	wait_process(t_list *lst)
+void	wait_process(t_data *args)
 {
-	while (lst)
+	while (args->lst)
 	{
 		wait(NULL);
-		lst = lst->next;
+		args->lst = args->lst->next;
 	}
 }
 
@@ -41,21 +41,13 @@ void	process(t_data *args, char **env)
 {
 	int		pid1;
 	t_list	*clone;
-
+	
 	make_dups(args);
 	clone = args->lst;
 	while (clone->next)
 	{
-		if (args->cpt == 1)
-		{
-			clone = clone->next;
-			args->cpt = 0;
-		}
-		else
-		{
-			redir(clone, env);
-			clone = clone->next;
-		}
+		redir(clone, env);
+		clone = clone->next;
 	}
 	pid1 = fork();
 	if (pid1 == -1)
@@ -81,7 +73,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	process(&args, env);
 	close(STDIN_FILENO);
-	wait_process(args.lst);
+	wait_process(&args);
 	free_all(&args);
 	ft_lstclear(&args.lst);
 	get_next_line(-1);

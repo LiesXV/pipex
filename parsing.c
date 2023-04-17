@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/04/17 12:38:14 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/17 13:37:14 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,12 @@ int	fill_data(int argc, char **argv, t_data *args)
 		return (-1);
 	args->fdin = open(args->infile, O_RDONLY);
 	if (args->fdin < 0)
+	{
+		ft_printf("%s: No such file or directory\n", args->infile);
 		args->cpt = 1;
+	}
 	args->fdout = open(argv[argc - 1], O_WRONLY | O_CREAT | args->mode, 0644);
-	args->lst = fill_list(argc - 1 - args->hdoc, argv + 1 + args->hdoc, args);
+	args->lst = fill_list(argc - 1 - args->hdoc + args->cpt, argv + 1 + args->hdoc - args->cpt, args);
 	if (!args->lst)
 		return (-1);
 	return (0);
