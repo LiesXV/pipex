@@ -6,12 +6,12 @@
 #    By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 13:10:41 by ibenhaim          #+#    #+#              #
-#    Updated: 2023/03/31 12:48:43 by ibenhaim         ###   ########.fr        #
+#    Updated: 2023/04/27 13:11:35 by ibenhaim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
-FLAGS		=	-Wall -Werror -Wextra
+FLAGS		=	-Wall -Werror -Wextra -g3
 
 HEADER		=	pipex.h
 SRCS		=	pipex.c parsing.c utils.c get_env.c processes.c

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:56:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/04/17 13:37:14 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:46:09 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_path(char **path, char *cmd)
 	result = -1;
 	i = -1;
 	test = ft_strdup(cmd);
-	if (access(cmd, F_OK | X_OK) == 0)
+	if (cmd != NULL && access(cmd, F_OK | X_OK) == 0)
 		return (test);
 	while (path[++i] && result == -1)
 	{
@@ -100,6 +100,30 @@ int	assign_mode(char **argv, t_data *args)
 	return (0);
 }
 
+t_list	*ft_lstmlast(t_list *lst)
+{
+	while (lst->next)
+	{
+		if (!lst->next->next)
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
+}
+
+
+void	del_last(t_list *lst, t_data *args)
+{
+	lst = ft_lstmlast(lst);
+	if (lst->next->cmd)
+		free_split(lst->next->cmd);
+	if (lst->next->path)
+		free(lst->next->path);
+	free(lst->next);
+	lst->next = ft_lstnew("sleep 0", args);
+	lst->next->next = NULL;
+}
+
 int	fill_data(int argc, char **argv, t_data *args)
 {
 	args->cpt = 0;
@@ -111,9 +135,11 @@ int	fill_data(int argc, char **argv, t_data *args)
 		ft_printf("%s: No such file or directory\n", args->infile);
 		args->cpt = 1;
 	}
-	args->fdout = open(argv[argc - 1], O_WRONLY | O_CREAT | args->mode, 0644);
-	args->lst = fill_list(argc - 1 - args->hdoc + args->cpt, argv + 1 + args->hdoc - args->cpt, args);
+	args->lst = fill_list(argc - 1 - args->hdoc, argv + 1 + args->hdoc, args);
 	if (!args->lst)
 		return (-1);
+	args->fdout = open(argv[argc - 1], O_WRONLY | O_CREAT | args->mode, 0644);
+	if (args->fdout == -1)
+		del_last(args->lst, args);
 	return (0);
 }

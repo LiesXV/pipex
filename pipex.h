@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 12:36:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/04/03 13:31:28 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:50:18 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	list_print(t_list *lst);
 
 ////////////////// PROCESSES /////////////////////////
 
-void	redir(t_list *lst, char **env);
-void	exec(t_list *lst, char **env);
+void	redir(t_list *lst, char **env, t_data *args);
+void	exec(t_list *lst, char **env, t_data *args);
 
 ////////////////// PARSING //////////////////////////
 

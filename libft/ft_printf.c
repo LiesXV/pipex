@@ -14,7 +14,7 @@
 
 int	ft_putchar(int c)
 {
-	return (write(1, &c, 1));
+	return (write(2, &c, 1));
 }
 
 int	ft_format(va_list ap, const char format)

@@ -6,12 +6,12 @@
 #    By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 11:52:55 by ibenhaim          #+#    #+#              #
-#    Updated: 2023/03/31 12:48:39 by ibenhaim         ###   ########.fr        #
+#    Updated: 2023/04/27 13:11:47 by ibenhaim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= libft.a
-FLAGS			= -Wall -Werror -Wextra
+FLAGS			= -Wall -Werror -Wextra -g3
 
 HEADER			= libft.h
 SRCS			= ft_isalpha.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isdigit.c ft_isalnum.c ft_isalpha.c \
