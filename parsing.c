@@ -38,8 +38,12 @@ char	*get_path(char **path, char *cmd)
 	result = -1;
 	i = -1;
 	test = ft_strdup(cmd);
-	if (cmd != NULL && access(cmd, F_OK | X_OK) == 0)
-		return (test);
+	if (cmd != NULL && ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, F_OK | X_OK) == 0)
+			return (test);
+		return (NULL);
+	}
 	while (path[++i] && result == -1)
 	{
 		free(test);
@@ -98,30 +102,6 @@ int	assign_mode(char **argv, t_data *args)
 		args->mode = O_TRUNC;
 	}
 	return (0);
-}
-
-t_list	*ft_lstmlast(t_list *lst)
-{
-	while (lst->next)
-	{
-		if (!lst->next->next)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
-}
-
-
-void	del_last(t_list *lst, t_data *args)
-{
-	lst = ft_lstmlast(lst);
-	if (lst->next->cmd)
-		free_split(lst->next->cmd);
-	if (lst->next->path)
-		free(lst->next->path);
-	free(lst->next);
-	lst->next = ft_lstnew("sleep 0", args);
-	lst->next->next = NULL;
 }
 
 int	fill_data(int argc, char **argv, t_data *args)

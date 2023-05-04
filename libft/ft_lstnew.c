@@ -13,10 +13,17 @@
 #include "libft.h"
 #include "../pipex.h"
 
+t_list	*new_error(t_data *args, t_list *new, char *cmd)
+{
+	ft_printf("command not found: %s\n", cmd);
+	free_split(new->cmd);
+	free(new);
+	return (ft_lstnew("sleep 0", args));
+}
+
 t_list	*ft_lstnew(char *cmd, t_data *args)
 {
 	t_list	*new;
-
 
 	if (args->cpt == 1)
 	{
@@ -27,23 +34,11 @@ t_list	*ft_lstnew(char *cmd, t_data *args)
 	if (!new)
 		return (NULL);
 	new->cmd = ft_split_pipex(cmd, ' ');
-	// ft_printf("%s\n", new->cmd[0]);
 	if (!new->cmd || !new->cmd[0])
-	{
-		ft_printf("command not found: %s\n", cmd);
-		free_split(new->cmd);
-		free(new);
-		return (ft_lstnew("sleep 0", args));
-	}
+		return (new_error(args, new, cmd));
 	new->path = get_path(args->env, new->cmd[0]);
-	// ft_printf("%s\n", new->path);
 	if (!new->path)
-	{
-		ft_printf("command not found: %s\n", cmd);
-		free_split(new->cmd);
-		free(new);
-		return (ft_lstnew("sleep 0", args));
-	}
+		return (new_error(args, new, cmd));
 	new->next = NULL;
 	return (new);
 }

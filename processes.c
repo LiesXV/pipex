@@ -20,40 +20,34 @@ void	exec(t_list *lst, char **env, t_data *args)
 	exit(1);
 }
 
+void	free_and_exit(t_data *args)
+{
+	free_all(args);
+	exit(1);
+}
+
 void	redir(t_list *lst, char **env, t_data *args)
 {
 	pid_t	pid;
 	int		pipefd[2];
 
 	if (pipe(pipefd) == -1)
-	{
-		free_all(args);
-		exit(1);
-	}
+		free_and_exit(args);
 	pid = fork();
 	if (pid == -1)
-	{
-		free_all(args);
-		exit(1);
-	}
+		free_and_exit(args);
 	if (pid)
 	{
 		close(pipefd[1]);
 		if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		{
-			free_all(args);
-			exit(1);
-		}
+			free_and_exit(args);
 		close(pipefd[0]);
 	}
 	else
 	{
 		close(pipefd[0]);
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-		{
-			free_all(args);
-			exit(1);
-		}
+			free_and_exit(args);
 		close(pipefd[1]);
 		exec(lst, env, args);
 	}

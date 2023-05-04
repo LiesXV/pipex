@@ -47,7 +47,7 @@ void	process(t_data *args, char **env)
 {
 	int		pid1;
 	t_list	*clone;
-	
+
 	make_dups(args);
 	clone = args->lst;
 	while (clone->next)
