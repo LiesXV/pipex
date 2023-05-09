@@ -88,9 +88,10 @@ int	assign_mode(char **argv, t_data *args)
 			return (-1);
 		args->limiter = ft_strfjoin(args->limiter, "\n");
 		if (!args->limiter)
-			return (-1);
+			return (free(args->limiter), -1);
 		args->mode = O_APPEND;
 		args->fdin = -1;
+		args->infile = NULL;
 		return (1);
 	}
 	else
@@ -100,6 +101,7 @@ int	assign_mode(char **argv, t_data *args)
 		if (!args->infile)
 			return (-1);
 		args->mode = O_TRUNC;
+		args->limiter = NULL;
 		return (0);
 	}
 }

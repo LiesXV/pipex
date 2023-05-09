@@ -12,6 +12,15 @@
 
 #include "pipex.h"
 
+void	wait_process(t_list *lst)
+{
+	while (lst)
+	{
+		wait(NULL);
+		lst = lst->next;
+	}
+}
+
 void	make_dups(t_data *args)
 {
 	if (args->fdout != -1)
@@ -54,7 +63,6 @@ void	process(t_data *args, char **env)
 	pid1 = fork();
 	if (pid1 == -1)
 	{
-		wait(NULL);
 		free_all(args);
 		exit(1);
 	}
@@ -77,12 +85,18 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("data unfilled\n", 2);
 		return (0);
 	}
-	
 	process(&args, env);
-	wait(NULL);
+	// ft_putstr_fd("data unfilled\n", 2);
 	close(STDIN_FILENO);
+	// ft_putstr_fd("data unfilled\n", 2);
+
+	// ft_putstr_fd("data unfilled\n", 2);
+	if (!args.infile)
+		wait(NULL);
+	wait_process(args.lst);
 	free_all(&args);
 	ft_lstclear(&args.lst);
+	// ft_putstr_fd("data unfilled\n", 2);
 	get_next_line(-1);
 	return (0);
 }

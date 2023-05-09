@@ -42,7 +42,6 @@ void	redir(t_list *lst, char **env, t_data *args)
 		if (dup2(pipefd[0], STDIN_FILENO) == -1)
 			free_and_exit(args);
 		close(pipefd[0]);
-		wait(NULL);
 	}
 	else
 	{

@@ -14,9 +14,9 @@
 
 void	free_all(t_data *args)
 {
-	if (args->hdoc == 1 && args->limiter)
+	if (args->limiter)
 		free(args->limiter);
-	if (args->hdoc == 0 && args->infile)
+	if (args->infile)
 		free(args->infile);
 	if (args->env)
 		free_split(args->env);
@@ -28,10 +28,11 @@ void	read_input(t_data *args, int fd[2])
 {
 	char	*line;
 
+	line = NULL; 
 	while (1)
 	{
 		write(2, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
+		line = get_next_line(0);
 		if (!line)
 		{
 			close(fd[0]);
@@ -42,6 +43,8 @@ void	read_input(t_data *args, int fd[2])
 		{
 			close(fd[0]);
 			close(fd[1]);
+			free(line);
+			free(args->limiter);
 			exit(1);
 		}
 		write(fd[1], line, ft_strlen(line));
