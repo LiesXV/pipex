@@ -42,9 +42,15 @@ void	redir(t_list *lst, char **env, t_data *args)
 		if (dup2(pipefd[0], STDIN_FILENO) == -1)
 			free_and_exit(args);
 		close(pipefd[0]);
+		wait(NULL);
 	}
 	else
 	{
+		if (args->hdoc == 1)
+		{
+			read_input(args, pipefd);
+			args->hdoc = 0;
+		}
 		close(pipefd[0]);
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			free_and_exit(args);

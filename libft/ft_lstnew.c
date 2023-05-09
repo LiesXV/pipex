@@ -16,8 +16,10 @@
 t_list	*new_error(t_data *args, t_list *new, char *cmd)
 {
 	ft_printf("command not found: %s\n", cmd);
-	free_split(new->cmd);
-	free(new);
+	if (new->cmd)
+		free_split(new->cmd);
+	if (new)
+		free(new);
 	return (ft_lstnew("sleep 0", args));
 }
 

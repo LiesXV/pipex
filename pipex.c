@@ -12,26 +12,8 @@
 
 #include "pipex.h"
 
-void	wait_process(t_list *lst)
-{
-	while (lst)
-	{
-		wait(NULL);
-		lst = lst->next;
-	}
-}
-
 void	make_dups(t_data *args)
 {
-	if (args->fdin != -1)
-	{
-		if (dup2(args->fdin, STDIN_FILENO) == -1)
-		{
-			free_all(args);
-			exit(1);
-		}
-		close(args->fdin);
-	}
 	if (args->fdout != -1)
 	{
 		if (dup2(args->fdout, STDOUT_FILENO) == -1)
@@ -40,6 +22,15 @@ void	make_dups(t_data *args)
 			exit(1);
 		}
 		close(args->fdout);
+	}
+	if (args->fdin != -1)
+	{
+		if (dup2(args->fdin, STDIN_FILENO) == -1)
+		{
+			free_all(args);
+			exit(1);
+		}
+		close(args->fdin);
 	}
 }
 
@@ -50,6 +41,11 @@ void	process(t_data *args, char **env)
 
 	make_dups(args);
 	clone = args->lst;
+	if (args->hdoc == 1)
+	{
+		redir(clone, env, args);
+		args->hdoc = 0;
+	}
 	while (clone->next)
 	{
 		redir(clone, env, args);
@@ -58,6 +54,7 @@ void	process(t_data *args, char **env)
 	pid1 = fork();
 	if (pid1 == -1)
 	{
+		wait(NULL);
 		free_all(args);
 		exit(1);
 	}
@@ -80,9 +77,10 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("data unfilled\n", 2);
 		return (0);
 	}
+	
 	process(&args, env);
+	wait(NULL);
 	close(STDIN_FILENO);
-	wait_process(args.lst);
 	free_all(&args);
 	ft_lstclear(&args.lst);
 	get_next_line(-1);

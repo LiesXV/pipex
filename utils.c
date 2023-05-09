@@ -16,36 +16,38 @@ void	free_all(t_data *args)
 {
 	if (args->hdoc == 1 && args->limiter)
 		free(args->limiter);
-	if (args->infile)
+	if (args->hdoc == 0 && args->infile)
 		free(args->infile);
 	if (args->env)
 		free_split(args->env);
-	ft_lstclear(&args->lst);
+	if (&args->lst)
+		ft_lstclear(&args->lst);
 }
 
-int	read_input(t_data *args)
+void	read_input(t_data *args, int fd[2])
 {
-	int		file;
 	char	*line;
 
-	file = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (file < 0)
-		return (-1);
 	while (1)
 	{
-		write(1, "> ", 2);
-		line = get_next_line(0);
+		write(2, "> ", 2);
+		line = get_next_line(STDIN_FILENO);
 		if (!line)
+		{
+			close(fd[0]);
+			close(fd[1]);
 			exit(1);
+		}
 		if (!ft_strncmp(args->limiter, line, ft_strlen(args->limiter)))
-			break ;
-		write(file, line, ft_strlen(line));
+		{
+			close(fd[0]);
+			close(fd[1]);
+			exit(1);
+		}
+		write(fd[1], line, ft_strlen(line));
 		free(line);
 	}
 	free(line);
-	close(file);
-	args->infile = ft_strdup(".heredoc_tmp");
-	if (!args->infile)
-		return (-1);
-	return (0);
+	close(fd[0]);
+	close(fd[1]);
 }

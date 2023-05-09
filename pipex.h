@@ -37,6 +37,6 @@ char	**get_env(char **env);
 //////////////////// UTILS /////////////////////////
 
 void	free_all(t_data *args);
-int		read_input(t_data *args);
+void	read_input(t_data *args, int fd[2]);
 
 #endif

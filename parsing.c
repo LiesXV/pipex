@@ -89,9 +89,9 @@ int	assign_mode(char **argv, t_data *args)
 		args->limiter = ft_strfjoin(args->limiter, "\n");
 		if (!args->limiter)
 			return (-1);
-		if (read_input(args) == -1)
-			return (-1);
 		args->mode = O_APPEND;
+		args->fdin = -1;
+		return (1);
 	}
 	else
 	{
@@ -100,26 +100,33 @@ int	assign_mode(char **argv, t_data *args)
 		if (!args->infile)
 			return (-1);
 		args->mode = O_TRUNC;
+		return (0);
 	}
-	return (0);
 }
 
 int	fill_data(int argc, char **argv, t_data *args)
 {
 	args->cpt = 0;
-	if (assign_mode(argv, args) == -1)
-		return (-1);
-	args->fdin = open(args->infile, O_RDONLY);
-	if (args->fdin < 0)
+	args->hdoc = assign_mode(argv, args);
+	if (args->hdoc == -1)
+		return (ft_printf("error"), exit(1), 0);
+	if (args->hdoc == 0)
 	{
-		ft_printf("%s: No such file or directory\n", args->infile);
-		args->cpt = 1;
+		args->fdin = open(args->infile, O_RDONLY);
+		if (args->fdin < 0)
+		{
+			ft_printf("%s: No such file or directory\n", args->infile);
+			args->cpt = 1;
+		}
 	}
 	args->lst = fill_list(argc - 1 - args->hdoc, argv + 1 + args->hdoc, args);
 	if (!args->lst)
 		return (-1);
 	args->fdout = open(argv[argc - 1], O_WRONLY | O_CREAT | args->mode, 0644);
 	if (args->fdout == -1)
+	{
+		ft_printf("%s: No such file or directory\n", argv[argc - 1]);
 		del_last(args->lst, args);
+	}
 	return (0);
 }

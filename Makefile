@@ -23,17 +23,14 @@ OBJS		= 	${SRCS:.c=.o}
 
 LFTNAME		= 	libft.a
 
-%.o:%.c ${HEADER} ${DIR_LIB}libft.h
+%.o:%.c ${HEADER} $(DIR_LIB)libft.h
 				${CC} ${FLAGS} -c $< -o $@
 
-${NAME}		: ${OBJS} ${HEADER} $(DIR_LIB)libft.h
+${NAME}		: ${OBJS} ${HEADER} $(DIR_LIB)*.c $(DIR_LIB)libft.h
 				make -C libft
 				${CC} ${FLAGS} ${OBJS} ${DIR_LIB}${LFTNAME} -o ${NAME}
 
 all : ${NAME}
-
-$(LIBFT)	:
-				${MAKE} -C ${DIR_LIB}
 
 clean:
 				rm -f ${OBJS} 
