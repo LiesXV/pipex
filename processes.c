@@ -16,8 +16,7 @@ void	exec(t_list *lst, char **env, t_data *args)
 {
 	execve(lst->path, lst->cmd, env);
 	ft_putstr_fd("exec failed\n", 2);
-	free_all(args);
-	exit(1);
+	free_and_exit(args);
 }
 
 void	free_and_exit(t_data *args)
@@ -45,11 +44,6 @@ void	redir(t_list *lst, char **env, t_data *args)
 	}
 	else
 	{
-		if (args->hdoc == 1)
-		{
-			read_input(args, pipefd);
-			args->hdoc = 0;
-		}
 		close(pipefd[0]);
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			free_and_exit(args);

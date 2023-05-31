@@ -24,6 +24,7 @@ void	list_print(t_list *lst);
 
 void	redir(t_list *lst, char **env, t_data *args);
 void	exec(t_list *lst, char **env, t_data *args);
+void	free_and_exit(t_data *args);
 
 ////////////////// PARSING //////////////////////////
 

@@ -33,26 +33,24 @@ char	*get_path(char **path, char *cmd)
 {
 	char	*test;
 	int		i;
-	int		result;
 
-	result = -1;
 	i = -1;
 	test = ft_strdup(cmd);
+	if (!test)
+		return (NULL);
 	if (cmd != NULL && ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
 			return (test);
 		return (NULL);
 	}
-	while (path[++i] && result == -1)
+	while (path[++i])
 	{
 		free(test);
 		test = join_cmd(path[i], cmd);
 		if (!test)
 			return (NULL);
-		if (access(test, F_OK | X_OK) == -1)
-			result = -1;
-		else
+		if (access(test, F_OK | X_OK) >= 0)
 			return (test);
 	}
 	return (free(test), NULL);
@@ -80,30 +78,12 @@ t_list	*fill_list(int argc, char **argv, t_data *args)
 
 int	assign_mode(char **argv, t_data *args)
 {
-	if (ft_strncmp(argv[0], "here_doc", 8) == 0)
-	{
-		args->hdoc = 1;
-		args->limiter = ft_strdup(argv[1]);
-		if (!args->limiter)
-			return (-1);
-		args->limiter = ft_strfjoin(args->limiter, "\n");
-		if (!args->limiter)
-			return (free(args->limiter), -1);
-		args->mode = O_APPEND;
-		args->fdin = -1;
-		args->infile = NULL;
-		return (1);
-	}
-	else
-	{
-		args->hdoc = 0;
-		args->infile = ft_strdup(argv[0]);
-		if (!args->infile)
-			return (-1);
-		args->mode = O_TRUNC;
-		args->limiter = NULL;
-		return (0);
-	}
+	args->infile = ft_strdup(argv[0]);
+	if (!args->infile)
+		return (-1);
+	args->mode = O_TRUNC;
+	args->limiter = NULL;
+	return (0);
 }
 
 int	fill_data(int argc, char **argv, t_data *args)
@@ -111,8 +91,8 @@ int	fill_data(int argc, char **argv, t_data *args)
 	args->cpt = 0;
 	args->hdoc = assign_mode(argv, args);
 	if (args->hdoc == -1)
-		return (ft_printf("error"), exit(1), 0);
-	if (args->hdoc == 0)
+		return (ft_printf("error"), free_and_exit(args), 0);
+	else
 	{
 		args->fdin = open(args->infile, O_RDONLY);
 		if (args->fdin < 0)

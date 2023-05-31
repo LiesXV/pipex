@@ -14,6 +14,8 @@
 
 void	free_all(t_data *args)
 {
+	close(1);
+	close(0);
 	if (args->limiter)
 		free(args->limiter);
 	if (args->infile)
@@ -22,35 +24,4 @@ void	free_all(t_data *args)
 		free_split(args->env);
 	if (&args->lst)
 		ft_lstclear(&args->lst);
-}
-
-void	read_input(t_data *args, int fd[2])
-{
-	char	*line;
-
-	line = NULL; 
-	while (1)
-	{
-		write(2, "> ", 2);
-		line = get_next_line(0);
-		if (!line)
-		{
-			close(fd[0]);
-			close(fd[1]);
-			exit(1);
-		}
-		if (!ft_strncmp(args->limiter, line, ft_strlen(args->limiter)))
-		{
-			close(fd[0]);
-			close(fd[1]);
-			free(line);
-			free(args->limiter);
-			exit(1);
-		}
-		write(fd[1], line, ft_strlen(line));
-		free(line);
-	}
-	free(line);
-	close(fd[0]);
-	close(fd[1]);
 }

@@ -74,8 +74,8 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	args;
 
-	if (argc < 5 || argc > 5)
-		return (ft_putstr_fd("mauvais nombre d'arguments\n", 2), 0);
+	if (argc < 5)
+		return (ft_putstr_fd("arguments insuffisants\n", 2), 0);
 	args.env = get_env(env);
 	if (!args.env)
 		return (ft_putstr_fd("environment variables not parsed\n", 2), 0);
